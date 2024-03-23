@@ -28,17 +28,15 @@ class TagPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Expanded(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: Center(
-                child: ProjectRow(
-              projects,
-              width: 320,
-              alignment: WrapAlignment.start,
-            )),
-          ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Center(
+              child: ProjectRow(
+            projects,
+            width: 320,
+            alignment: WrapAlignment.start,
+          )),
         ),
       ),
     );
