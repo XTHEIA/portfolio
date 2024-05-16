@@ -25,6 +25,7 @@ class _HubState extends State<Hub> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: Field.values.map((tab) {
             final isSelected = tab == currentTab;
+            final isHoverring = hoveringTab == tab;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 3),
               child: InkWell(
@@ -49,22 +50,17 @@ class _HubState extends State<Hub> {
                               Icon(
                                 tab.tabIcon,
                                 size: 20,
-                                color: isSelected ? tab.colors.first : Colors.grey,
+                                color:
+                                    isSelected ? tab.colors.first : Colors.grey,
                               ),
-                              isSelected
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(left: 7),
-                                      child: Row(
-                                        children: [
-                                          text(
-                                            tab.label,
-                                            size: 15,
-                                            color: isSelected ? null : Colors.grey,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : const SizedBox(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 7),
+                                child: text(
+                                  tab.label,
+                                  size: 15,
+                                  color: isSelected ? null : Colors.grey,
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -73,15 +69,14 @@ class _HubState extends State<Hub> {
                             gradient: LinearGradient(
                               colors: isSelected
                                   ? tab.colors
-                                  : tab.colors.map((c) => Color.lerp(c, Colors.grey, 0.7)!).toList(),
+                                  : tab.colors
+                                      .map((c) =>
+                                          Color.lerp(c, Colors.grey, 0.7)!)
+                                      .toList(),
                             ),
                           ),
                           height: 3,
-                          width: isSelected
-                              ? 170
-                              : hoveringTab == tab
-                                  ? 50
-                                  : 40,
+                          width: 140 + (isSelected ? 10 : isHoverring ? 5 : 0),
                         ),
                       ],
                     ),

@@ -32,7 +32,8 @@ class _ProfileBoxState extends State<ProfileBox> {
   void initState() {
     super.initState();
     cycleField();
-    cycleTimer = Timer.periodic(const Duration(seconds: 4), (timer) => cycleField());
+    cycleTimer =
+        Timer.periodic(const Duration(seconds: 4), (timer) => cycleField());
   }
 
   @override
@@ -83,87 +84,94 @@ class _ProfileBoxState extends State<ProfileBox> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // left
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Name
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              // Name
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('SBKIM.XTHEiA',
+                      style:
+                          TextStyle(fontSize: 50, fontWeight: FontWeight.w500)),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 13, left: 10),
+                    child: Text('세빈', style: TextStyle(color: Colors.white60)),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                  width: 100, child: Divider(height: 0, color: Colors.white54)),
+
+              const SizedBox(height: 30),
+              // Field Descriptions
+              SizedBox(
+                width: descWidth,
+                child: Stack(
+                  alignment: Alignment.topRight,
                   children: [
-                    Text('SBKIM.XTHEiA', style: TextStyle(fontSize: 50, fontWeight: FontWeight.w500)),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 13, left: 10),
-                      child: Text('세빈', style: TextStyle(color: Colors.white60)),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 100, child: Divider(height: 0, color: Colors.white54)),
+                    // Content
+                    Container(
+                      child: field == null
+                          ? const SizedBox()
+                          : Column(
 
-                const SizedBox(height: 30),
-
-                // Field Descriptions
-                SizedBox(
-                  width: descWidth,
-                  child: Stack(
-                    alignment: Alignment.topRight,
-                    children: [
-                      // Content
-                      Container(
-                        child: field == null
-                            ? const SizedBox()
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          // Prefix + Development
+                          Row(
+                            children: [
+                              // prefix
+                              Row(
                                 children: [
-                                  // Prefix + Development
-                                  Row(
-                                    children: [
-                                      // prefix
-                                      Row(
-                                        children: [
-                                          Icon(field.tabIcon, color: field.colors.first),
-                                          const SizedBox(width: 5),
-                                          Text(
-                                            '${field.prefix} ',
-                                            style: TextStyle(
-                                              fontSize: prefixFontSize,
-                                              fontWeight: FontWeight.w500,
-                                              color: field.colors.first,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
 
-                                      // dev
-                                      const Text(
-                                        '개발',
-                                        style:
-                                            TextStyle(fontSize: prefixFontSize, fontWeight: FontWeight.w500),
-                                      )
-                                    ],
-                                  ),
-
-                                  SizedBox(height: 5),
+                                  Icon(field.tabIcon,
+                                      color: field.colors.first),
+                                  const SizedBox(width: 5),
                                   Text(
-                                    field.prefixDesc,
-                                    style: const TextStyle(fontSize: 15, color: Colors.white70),
+                                    '${field.prefix} ',
+                                    style: TextStyle(
+                                      fontSize: prefixFontSize,
+                                      fontWeight: FontWeight.w500,
+                                      color: field.colors.first,
+                                    ),
                                   ),
                                 ],
                               ),
-                      ),
-                      // Paint
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 600),
-                        curve: Curves.easeOutExpo,
-                        color: backgroundColor,
-                        width: width,
-                        height: 80,
-                      ),
-                    ],
-                  ),
-                ),
 
-              ],
-            ),
+                              // dev
+                              const Text(
+
+                                '제작',
+                                style: TextStyle(
+                                    fontSize: prefixFontSize,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+
+                          SizedBox(height: 5),
+                          Text(
+                            field.prefixDesc,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white70),
+
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Paint
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeOutExpo,
+                      color: backgroundColor,
+                      width: width,
+                      height: 125,
+                    ),
+                  ],
+                ),
+              ),
+            ]),
 
             // right
             SizedBox.square(
@@ -176,4 +184,3 @@ class _ProfileBoxState extends State<ProfileBox> {
     );
   }
 }
-

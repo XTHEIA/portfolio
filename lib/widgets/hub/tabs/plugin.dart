@@ -55,6 +55,12 @@ class PluginHubTab extends StatelessWidget {
               color: Colors.pinkAccent,
             ),
             DescriptionCard.text(
+              Icons.dns,
+              '다중 서버 대상 지원',
+              '다중 서버 프록시 호환 플러그인 제작\n(번지코드, Velocity 등)',
+              color: Colors.pinkAccent,
+            ),
+            DescriptionCard.text(
               Icons.settings,
               '간편한 사용자화',
               '쉽게 플러그인, 모드의 설정을 변경할 수 있는 방법 제공',
