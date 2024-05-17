@@ -3,7 +3,7 @@ import 'package:portfolio/project/project.dart';
 import 'package:portfolio/project/tag.dart';
 import 'package:portfolio/utils/text.dart';
 
-class ProjectTile extends StatelessWidget {
+class ProjectTile extends StatefulWidget {
   static const double _IMG_RATIO = 280 / 530;
   static const double defaultWidth = 350;
 
@@ -47,23 +47,32 @@ class ProjectTile extends StatelessWidget {
         description = project.description,
         tags = project.tags,
         color = project.color,
-        onTap = project.onTap();
+        onTap = project.getOnTap();
+
+  @override
+  State<ProjectTile> createState() => _ProjectTileState();
+}
+
+class _ProjectTileState extends State<ProjectTile> {
+  bool isHoverring = false;
+  late final hasOnTap = widget.onTap != null;
 
   @override
   Widget build(BuildContext context) {
-    final tags = List.of(this.tags);
+    final tags = List.of(this.widget.tags);
     final firstTag = tags.removeAt(0);
 
     return InkWell(
-      onTap: onTap == null ? null : () => onTap!(context),
+      onTap: widget.onTap == null ? null : () => widget.onTap!(context),
+      onHover: hasOnTap ? (b) => setState(() => isHoverring = b) : null,
       child: Container(
-        width: width,
+        width: widget.width,
         decoration: BoxDecoration(
-          color: Color.lerp(const Color(0xFF25272C), color, 0.08),
+          color: Color.lerp(const Color(0xFF25272C), widget.color, isHoverring ? 0.15 : 0.08),
           // borderRadius: BorderRadius.circular(15),
           border: Border.all(
-            color: color ?? Colors.blueGrey,
-            width: 0.7,
+            color: widget.color ?? Colors.blueGrey,
+            width: isHoverring ? 2 : 0.7,
             strokeAlign: BorderSide.strokeAlignOutside,
           ),
           boxShadow: const [BoxShadow(blurRadius: 3, spreadRadius: 2, offset: Offset(1, 1))],
@@ -74,13 +83,13 @@ class ProjectTile extends StatelessWidget {
           children: [
             // Img
             Container(
-              height: width * _IMG_RATIO,
+              height: widget.width * ProjectTile._IMG_RATIO,
               alignment: Alignment.center,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  image,
-                  showFirstTag
+                  widget.image,
+                  widget.showFirstTag
                       ? Align(
                           alignment: Alignment.topRight,
                           child: Container(
@@ -94,7 +103,7 @@ class ProjectTile extends StatelessWidget {
               ),
             ),
 
-            Divider(height: 0, color: color?.withOpacity(0.4) ?? Colors.blueGrey),
+            Divider(height: 0, color: widget.color?.withOpacity(0.4) ?? Colors.blueGrey),
 
             // Description
             Padding(
@@ -112,9 +121,9 @@ class ProjectTile extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            logo,
+                            widget.logo,
                             const SizedBox(width: 4),
-                            text(title, size: 18, weight: FontWeight.w500),
+                            text(widget.title, size: 18, weight: FontWeight.w500),
                           ],
                         ),
                       ),
@@ -122,7 +131,7 @@ class ProjectTile extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 6, bottom: 12),
                         child: SizedBox(
                             height: 38,
-                            child: text(description, size: 14, color: Colors.white.withOpacity(0.76))),
+                            child: text(widget.description, size: 14, color: Colors.white.withOpacity(0.76))),
                       ),
                     ],
                   ),
