@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<style>
+    * {
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .loading-screen {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: #1C1B1F;
+        color: white;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .title {
+        display: flex;
+        flex-direction: row;
+        color: white;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+<head>
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="title" content="SBKIM.XTHEiA">
+    <meta name="description" content="SBXT's Developer Portfolio">
+    <meta property="og:image" content="https://sbxt.kr/favicon.png">
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="portfolio">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+
+    <title>SBKIM.XTHEiA</title>
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Css -->
+    <link href="spinner.css" rel="stylesheet">
+
+    <script>
+        const serviceWorkerVersion = "56937618";
+    </script>
+    <script src="flutter.js" defer></script>
+</head>
+<body>
+<div class="loading-screen">
+    <div class="title">
+        <img src="icon_transparent.png" width="80px" height="80px" alt="sbxt logo">
+        <p style="margin-left: 5px;font-weight: 400; font-size: 60px;">
+            SBXT
+        </p>
+    </div>
+    <div class="spinner" style="margin-top: 60px">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <p id="loading_text" style="margin-top: 25px; font-size: 13px; color: #999999">
+        ...
+    </p>
+
+</div>
+<script>
+    window.addEventListener('load', function (ev) {
+        var loading = document.querySelector('#loading_text');
+        loading.textContent = "진입점 로드 중";
+        _flutter.loader.loadEntrypoint({
+            serviceWorker: {
+                serviceWorkerVersion: serviceWorkerVersion,
+            },
+            onEntrypointLoaded: async function (engineInitializer) {
+                loading.textContent = "엔진 시작 중";
+                let appRunner = await engineInitializer.initializeEngine();
+
+                loading.textContent = "환영합니다!";
+                await appRunner.runApp();
+            }
+        });
+    });
+</script>
+</body>
+</html>
